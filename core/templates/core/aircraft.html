@@ -1,0 +1,354 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Aircraft</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        ✈️ <span>FlightFix</span>
+    </div>
+
+
+    <!-- DESKTOP NAVIGATION -->
+
+    <nav class="desktop-nav">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/aircraft/" class="active">
+            Aircraft
+        </a>
+
+        <a href="/maintenance/">
+            Maintenance
+        </a>
+
+        <a href="/inventory/">
+            Inventory
+        </a>
+
+        <a href="/technicians/">
+            Technicians
+        </a>
+
+    </nav>
+
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button
+        class="menu-toggle"
+        onclick="toggleMenu()"
+        aria-label="Open navigation menu"
+    >
+        ☰
+    </button>
+
+
+    <!-- MOBILE NAVIGATION -->
+
+    <div
+        class="mobile-nav"
+        id="mobileNav"
+    >
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/aircraft/" class="active">
+            Aircraft
+        </a>
+
+        <a href="/maintenance/">
+            Maintenance
+        </a>
+
+        <a href="/inventory/">
+            Inventory
+        </a>
+
+        <a href="/technicians/">
+            Technicians
+        </a>
+
+    </div>
+
+
+    <!-- LOGIN / LOGOUT -->
+
+    {% if user.is_authenticated %}
+
+        <a
+            href="/logout/"
+            class="login-btn"
+        >
+            Logout
+        </a>
+
+    {% else %}
+
+        <a
+            href="/login/"
+            class="login-btn"
+        >
+            Login
+        </a>
+
+    {% endif %}
+
+</header>
+
+    <!-- Aircraft Page -->
+
+    <main class="dashboard">
+
+        <div class="dashboard-header">
+
+            <div>
+                <p class="tagline">FLEET MANAGEMENT</p>
+
+                <h1>Aircraft Management</h1>
+
+                <p>
+                    Manage aircraft information, operational status
+                    and maintenance history.
+                </p>
+            </div>
+
+            <a href="/aircraft/add/" class="primary-btn">
+    + Add Aircraft
+</a>
+
+        </div>
+
+
+        <!-- Aircraft Statistics -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon">✈️</div>
+
+                <p>Total Aircraft</p>
+
+                <h2>{{total_aircraft}} </h2>
+
+                <span>Aircraft in fleet</span>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">🟢</div>
+
+                <p>Operational</p>
+
+                <h2>{{ operational }}</h2>
+
+                <span>Currently flying</span>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">🔧</div>
+
+                <p>Under Maintenance</p>
+
+                <h2>{{ maintenance }}</h2>
+
+                <span>Maintenance ongoing</span>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">⚠️</div>
+
+                <p>Inspection Due</p>
+
+                <h2>{{ inspection_due }}</h2>
+
+                <span>Require attention</span>
+            </div>
+
+        </section>
+
+
+        <!-- Aircraft List -->
+
+        <section class="dashboard-panel">
+
+            <div class="panel-header">
+
+                <h2>Aircraft Fleet</h2>
+
+                <form method="GET" class="search-form">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search aircraft..."
+        value="{{ request.GET.search }}"
+    >
+
+    <select name="status">
+        <option value="">All Status</option>
+
+        <option
+            value="Operational"
+            {% if request.GET.status == "Operational" %}selected{% endif %}
+        >
+            Operational
+        </option>
+
+        <option
+            value="Maintenance"
+            {% if request.GET.status == "Maintenance" %}selected{% endif %}
+        >
+            Maintenance
+        </option>
+
+        <option
+            value="Inspection Due"
+            {% if request.GET.status == "Inspection Due" %}selected{% endif %}
+        >
+            Inspection Due
+        </option>
+    </select>
+
+    <button type="submit">
+        🔍 Search
+    </button>
+
+</form>
+
+            </div>
+
+
+            <div class="aircraft-table">
+        <div class="table-header">
+        <span>Registration</span>
+        <span>Model</span>
+        <span>Status</span>
+        <span>Last Maintenance</span>
+        <span>Next Maintenance</span>
+        <span>Actions</span>
+    </div>
+
+
+                {% for aircraft in aircraft_list %}
+
+<div class="table-row">
+
+    <span>
+        <strong>{{ aircraft.registration_number }}</strong>
+    </span>
+
+    <span>
+        {{ aircraft.model }}
+    </span>
+
+    <span>
+        <span class="status-badge
+            {% if aircraft.status == 'Operational' %}
+                operational
+            {% elif aircraft.status == 'Maintenance' %}
+                maintenance
+            {% else %}
+                warning
+            {% endif %}
+        ">
+            {{ aircraft.status }}
+        </span>
+    </span>
+
+    <span>
+        {% if aircraft.last_maintenance %}
+            {{ aircraft.last_maintenance|date:"d M Y" }}
+        {% else %}
+            —
+        {% endif %}
+    </span>
+
+    <span>
+        {% if aircraft.next_maintenance %}
+            {{ aircraft.next_maintenance|date:"d M Y" }}
+        {% else %}
+            —
+        {% endif %}
+    </span>
+  <span class="action-buttons">
+
+    <a
+        href="/aircraft/edit/{{ aircraft.id }}/"
+        class="edit-btn"
+    >
+        ✏️ Edit
+    </a>
+
+    <a
+        href="/aircraft/delete/{{ aircraft.id }}/"
+        class="delete-btn"
+    >
+        🗑️ Delete
+    </a>
+
+</span>
+
+</div>
+
+{% empty %}
+
+<div class="table-row">
+    <span>No aircraft found.</span>
+</div>
+
+{% endfor %}
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+    <script>
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobileNav");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+
+</body>
+</html>

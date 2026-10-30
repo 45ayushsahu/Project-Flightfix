@@ -1,0 +1,264 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Add Technician</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <nav>
+
+            <a href="/">Home</a>
+
+            <a href="/dashboard/">
+                Dashboard
+            </a>
+
+            <a href="/aircraft/">
+                Aircraft
+            </a>
+
+            <a href="/maintenance/">
+                Maintenance
+            </a>
+
+            <a href="/inventory/">
+                Inventory
+            </a>
+
+            <a href="/technicians/" class="active">
+                Technicians
+            </a>
+
+        </nav>
+
+        <a href="/login/" class="login-btn">
+            Login
+        </a>
+
+    </header>
+
+
+
+    <!-- ================= FORM ================= -->
+
+    <main class="form-page">
+
+        <div class="form-container">
+
+
+            <div class="form-header">
+
+                <p class="tagline">
+                    FLIGHTFIX MANAGEMENT SYSTEM
+                </p>
+
+                <h1>
+                    Add Technician
+                </h1>
+
+                <p>
+                    Add a new maintenance technician to the system.
+                </p>
+
+            </div>
+
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label>
+                        Technician Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="e.g. Rahul Sharma"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMPLOYEE ID -->
+
+                <div class="form-group">
+
+                    <label>
+                        Employee ID
+                    </label>
+
+                    <input
+                        type="text"
+                        name="employee_id"
+                        placeholder="e.g. TECH-002"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- SPECIALIZATION -->
+
+                <div class="form-group">
+
+                    <label>
+                        Specialization
+                    </label>
+
+                    <input
+                        type="text"
+                        name="specialization"
+                        placeholder="e.g. Hydraulic Systems"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EXPERIENCE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Experience (Years)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="experience"
+                        min="0"
+                        placeholder="e.g. 5"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- CURRENT TASK -->
+
+                <div class="form-group">
+
+                    <label>
+                        Current Task
+                    </label>
+
+                    <input
+                        type="text"
+                        name="current_task"
+                        placeholder="e.g. AI-421 Maintenance"
+                    >
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div class="form-group">
+
+                    <label>
+                        Status
+                    </label>
+
+                    <select
+                        name="status"
+                        required
+                    >
+
+                        <option value="Available">
+                            Available
+                        </option>
+
+                        <option value="On Task">
+                            On Task
+                        </option>
+
+                        <option value="On Leave">
+                            On Leave
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="/technicians/"
+                        class="secondary-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        + Add Technician
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

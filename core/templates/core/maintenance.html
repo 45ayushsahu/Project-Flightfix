@@ -1,0 +1,427 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Maintenance</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <nav>
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/dashboard/">
+                Dashboard
+            </a>
+
+            <a href="/aircraft/">
+                Aircraft
+            </a>
+
+            <a href="/maintenance/" class="active">
+                Maintenance
+            </a>
+
+            <a href="/inventory/">
+                Inventory
+            </a>
+
+            <a href="/technicians/">
+                Technicians
+            </a>
+
+        </nav>
+
+       {% if user.is_authenticated %}
+    <a href="/logout/" class="login-btn">Logout</a>
+{% else %}
+    <a href="/login/" class="login-btn">Login</a>
+{% endif %}
+
+    </header>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="dashboard">
+
+
+        <!-- ================= PAGE HEADER ================= -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <p class="tagline">
+                    FLIGHTFIX MANAGEMENT SYSTEM
+                </p>
+
+                <h1>
+                    Maintenance Management
+                </h1>
+
+                <p>
+                    Manage aircraft maintenance schedules,
+                    work orders and maintenance activities.
+                </p>
+
+            </div>
+
+
+            <a
+                href="/maintenance/add/"
+                class="primary-btn"
+            >
+                + New Work Order
+            </a>
+
+        </div>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- TOTAL WORK ORDERS -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔧
+                </div>
+
+                <p>
+                    Total Work Orders
+                </p>
+
+                <h2>
+                    {{ total_maintenance }}
+                </h2>
+
+                <span>
+                    All maintenance records
+                </span>
+
+            </div>
+
+
+
+            <!-- SCHEDULED -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📅
+                </div>
+
+                <p>
+                    Scheduled
+                </p>
+
+                <h2>
+                    {{ scheduled }}
+                </h2>
+
+                <span>
+                    Upcoming maintenance
+                </span>
+
+            </div>
+
+
+
+            <!-- IN PROGRESS -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⚙️
+                </div>
+
+                <p>
+                    In Progress
+                </p>
+
+                <h2>
+                    {{ in_progress }}
+                </h2>
+
+                <span>
+                    Currently being worked on
+                </span>
+
+            </div>
+
+
+
+            <!-- COMPLETED -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <p>
+                    Completed
+                </p>
+
+                <h2>
+                    {{ completed }}
+                </h2>
+
+                <span>
+                    Successfully completed
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= MAINTENANCE WORK ORDERS ================= -->
+
+        <section class="dashboard-panel">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Maintenance Work Orders
+                    </h2>
+
+                    <p>
+                        Track and manage aircraft maintenance activities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= MAINTENANCE TABLE ================= -->
+
+            <div class="maintenance-table-wrapper">
+
+                <table class="maintenance-data-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Work Order
+                            </th>
+
+                            <th>
+                                Aircraft
+                            </th>
+
+                            <th>
+                                Maintenance Type
+                            </th>
+
+                            <th>
+                                Scheduled Date
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for maintenance in maintenance_list %}
+
+                        <tr>
+
+
+                            <!-- WORK ORDER -->
+
+                            <td>
+
+                                <strong>
+                                    WO-{{ maintenance.id|stringformat:"04d" }}
+                                </strong>
+
+                            </td>
+
+
+
+                            <!-- AIRCRAFT -->
+
+                            <td>
+                                {{ maintenance.aircraft.registration_number }}
+                            </td>
+
+
+
+                            <!-- MAINTENANCE TYPE -->
+
+                            <td>
+                                {{ maintenance.maintenance_type }}
+                            </td>
+
+
+
+                            <!-- SCHEDULED DATE -->
+
+                            <td>
+                                {{ maintenance.scheduled_date|date:"d M Y" }}
+                            </td>
+
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                {% if maintenance.status == "Scheduled" %}
+
+                                    <span class="status-badge operational">
+                                        Scheduled
+                                    </span>
+
+                                {% elif maintenance.status == "In Progress" %}
+
+                                    <span class="status-badge maintenance">
+                                        In Progress
+                                    </span>
+
+                                {% elif maintenance.status == "Completed" %}
+
+                                    <span class="status-badge operational">
+                                        Completed
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="status-badge warning">
+                                        Overdue
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- ACTIONS -->
+
+                            <td>
+
+                                <div class="action-buttons">
+
+                                    <a
+                                        href="/maintenance/edit/{{ maintenance.id }}/"
+                                        class="edit-btn"
+                                    >
+                                        ✏️ Edit
+                                    </a>
+
+                                    <a
+                                        href="/maintenance/delete/{{ maintenance.id }}/"
+                                        class="delete-btn"
+                                    >
+                                        🗑️ Delete
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% empty %}
+
+
+                        <!-- NO RECORDS -->
+
+                        <tr>
+
+                            <td colspan="6">
+
+                                No maintenance records found.
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

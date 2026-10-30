@@ -1,0 +1,218 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | New Work Order</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/aircraft/">Aircraft</a>
+            <a href="/maintenance/" class="active">Maintenance</a>
+            <a href="/inventory/">Inventory</a>
+            <a href="/technicians/">Technicians</a>
+        </nav>
+
+        <a href="/login/" class="login-btn">
+            Login
+        </a>
+
+    </header>
+
+
+    <!-- Add Maintenance -->
+
+    <main class="dashboard">
+
+        <div class="dashboard-header">
+
+            <div>
+                <p class="tagline">MAINTENANCE MANAGEMENT</p>
+
+                <h1>New Work Order</h1>
+
+                <p>
+                    Create a new aircraft maintenance work order.
+                </p>
+            </div>
+
+        </div>
+
+
+        <section class="dashboard-panel">
+
+            <form method="POST" class="aircraft-form">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+
+                    <label for="aircraft">
+                        Aircraft
+                    </label>
+
+                    <select
+                        id="aircraft"
+                        name="aircraft"
+                        required
+                    >
+
+                        <option value="">
+                            Select Aircraft
+                        </option>
+
+                        {% for aircraft in aircraft_list %}
+
+                        <option value="{{ aircraft.id }}">
+                            {{ aircraft.registration_number }} - {{ aircraft.model }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="maintenance_type">
+                        Maintenance Type
+                    </label>
+
+                    <input
+                        type="text"
+                        id="maintenance_type"
+                        name="maintenance_type"
+                        placeholder="e.g. Engine Inspection"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Enter maintenance details..."
+                        rows="4"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="scheduled_date">
+                            Scheduled Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="scheduled_date"
+                            name="scheduled_date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="status">
+                            Status
+                        </label>
+
+                        <select
+                            id="status"
+                            name="status"
+                            required
+                        >
+
+                            <option value="Scheduled">
+                                Scheduled
+                            </option>
+
+                            <option value="In Progress">
+                                In Progress
+                            </option>
+
+                            <option value="Completed">
+                                Completed
+                            </option>
+
+                            <option value="Overdue">
+                                Overdue
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <a
+                        href="/maintenance/"
+                        class="secondary-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        + Create Work Order
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

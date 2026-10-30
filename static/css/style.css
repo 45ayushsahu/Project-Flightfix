@@ -1,0 +1,999 @@
+/* =====================================================
+   FLIGHTFIX - MODERN AEROSPACE HOMEPAGE
+   ===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050b14;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =====================================================
+   NAVBAR
+   ===================================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 78px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    background: rgba(5, 11, 20, 0.78);
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: #ffffff;
+}
+
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.desktop-nav a {
+    color: #c7d1df;
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.desktop-nav a:hover {
+    color: #36a9ff;
+}
+
+.login-btn {
+    padding: 11px 23px;
+
+    background: #1686d9;
+    color: white;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #36a9ff;
+    transform: translateY(-2px);
+}
+
+.menu-toggle {
+    display: none;
+
+    border: none;
+    background: transparent;
+
+    color: white;
+    font-size: 27px;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   MOBILE NAV
+   ===================================================== */
+
+.mobile-nav {
+    display: none;
+}
+
+
+/* =====================================================
+   HERO VIDEO SECTION
+   ===================================================== */
+
+.hero-video-section {
+    position: relative;
+
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    top: 0;
+    left: 0;
+
+    z-index: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(3, 8, 16, 0.96) 0%,
+            rgba(3, 8, 16, 0.78) 40%,
+            rgba(3, 8, 16, 0.30) 75%,
+            rgba(3, 8, 16, 0.65) 100%
+        );
+
+    z-index: 1;
+}
+
+.hero-content-new {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 760px;
+
+    margin-left: 8%;
+    padding-top: 80px;
+}
+
+.hero-badge {
+    display: inline-block;
+
+    padding: 9px 16px;
+
+    border: 1px solid rgba(54, 169, 255, 0.45);
+    border-radius: 30px;
+
+    background: rgba(12, 40, 65, 0.45);
+
+    color: #55b8ff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 25px;
+}
+
+.hero-content-new h1 {
+    font-size: clamp(55px, 7vw, 105px);
+
+    line-height: 0.95;
+
+    letter-spacing: -4px;
+
+    font-weight: 900;
+
+    margin-bottom: 25px;
+}
+
+.hero-content-new h1 span {
+    color: #249ce9;
+}
+
+.hero-content-new > p {
+    font-size: 25px;
+
+    font-weight: 600;
+
+    color: #e4edf7;
+
+    margin-bottom: 15px;
+}
+
+.hero-description {
+    max-width: 650px;
+
+    font-size: 16px !important;
+
+    line-height: 1.8;
+
+    color: #aebdce !important;
+
+    font-weight: 400 !important;
+}
+
+.hero-buttons {
+    display: flex;
+
+    gap: 14px;
+
+    margin-top: 32px;
+}
+
+.primary-btn,
+.secondary-btn,
+.outline-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 25px;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.3s;
+}
+
+.primary-btn {
+    background: #168bdc;
+    color: white;
+}
+
+.primary-btn:hover {
+    background: #35aaff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(22, 139, 220, 0.25);
+}
+
+.secondary-btn {
+    border: 1px solid rgba(255, 255, 255, 0.28);
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: white;
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+
+    transform: translateY(-3px);
+}
+
+.scroll-indicator {
+    position: absolute;
+
+    bottom: 35px;
+    left: 8%;
+
+    z-index: 3;
+
+    color: #9eafc1;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    text-align: center;
+}
+
+.scroll-indicator div {
+    margin-top: 8px;
+
+    font-size: 20px;
+
+    animation: scrollDown 1.5s infinite;
+}
+
+@keyframes scrollDown {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(7px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =====================================================
+   STATS
+   ===================================================== */
+
+.stats-section {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    background: #08111d;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.stat-box {
+    padding: 45px 20px;
+
+    text-align: center;
+
+    border-right: 1px solid rgba(255,255,255,0.07);
+}
+
+.stat-box:last-child {
+    border-right: none;
+}
+
+.stat-box h2 {
+    font-size: 38px;
+
+    color: #39a9f4;
+
+    margin-bottom: 8px;
+}
+
+.stat-box p {
+    color: #91a3b7;
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =====================================================
+   INTRO SECTION
+   ===================================================== */
+
+.intro-section {
+    min-height: 650px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    align-items: center;
+
+    gap: 70px;
+
+    padding: 100px 8%;
+
+    background: #07101b;
+}
+
+.intro-image {
+    height: 480px;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    position: relative;
+}
+
+.intro-image::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(
+        135deg,
+        rgba(8, 140, 220, 0.15),
+        transparent
+    );
+}
+
+.intro-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.7s;
+}
+
+.intro-image:hover img {
+    transform: scale(1.05);
+}
+
+.intro-content {
+    max-width: 560px;
+}
+
+.section-label {
+    color: #2fa6ed;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 18px;
+}
+
+.intro-content h2,
+.section-heading-new h2,
+.video-content h2,
+.cta-content h2 {
+    font-size: clamp(38px, 4vw, 58px);
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 25px;
+}
+
+.intro-content h2 span,
+.section-heading-new h2 span,
+.video-content h2 span,
+.cta-content h2 span {
+    color: #269de9;
+}
+
+.intro-content > p:not(.section-label) {
+    color: #99aabd;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    margin-bottom: 30px;
+}
+
+.outline-btn {
+    border: 1px solid #238fd0;
+
+    color: #54b8f6;
+
+    background: transparent;
+}
+
+.outline-btn:hover {
+    background: #168bdc;
+
+    color: white;
+}
+
+
+/* =====================================================
+   FEATURES
+   ===================================================== */
+
+.features-section {
+    padding: 110px 8%;
+
+    background: #050c15;
+}
+
+.section-heading-new {
+    max-width: 750px;
+
+    margin-bottom: 60px;
+}
+
+.feature-grid-new {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+.feature-card-new {
+    position: relative;
+
+    min-height: 350px;
+
+    padding: 32px 28px;
+
+    background: linear-gradient(
+        145deg,
+        #0d1a28,
+        #08111c
+    );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 10px;
+
+    transition: 0.4s;
+
+    overflow: hidden;
+}
+
+.feature-card-new::before {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: -50px;
+    bottom: -50px;
+
+    border-radius: 50%;
+
+    background: rgba(27, 153, 224, 0.15);
+
+    transition: 0.4s;
+}
+
+.feature-card-new:hover {
+    transform: translateY(-10px);
+
+    border-color: rgba(42, 166, 235, 0.5);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.25);
+}
+
+.feature-card-new:hover::before {
+    transform: scale(2);
+}
+
+.feature-number {
+    color: #53677b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 30px;
+}
+
+.feature-icon-new {
+    font-size: 36px;
+
+    margin-bottom: 25px;
+}
+
+.feature-card-new h3 {
+    font-size: 21px;
+
+    margin-bottom: 15px;
+}
+
+.feature-card-new p {
+    color: #8fa1b4;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+
+    margin-bottom: 22px;
+}
+
+.feature-card-new a {
+    color: #37aaf2;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   AIRCRAFT SHOWCASE
+   ===================================================== */
+
+.aircraft-showcase {
+    min-height: 650px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    background-image:
+        url("../images/aircraft-showcase.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+}
+
+.showcase-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(3,8,15,0.95),
+            rgba(3,8,15,0.60),
+            rgba(3,8,15,0.25)
+        );
+}
+
+.showcase-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 600px;
+
+    margin-left: 8%;
+}
+
+.showcase-content h2 {
+    font-size: clamp(45px, 5vw, 75px);
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+}
+
+.showcase-content h2 span {
+    color: #36aaf3;
+}
+
+.showcase-content > p:not(.section-label) {
+    color: #b2c0cf;
+
+    line-height: 1.8;
+
+    margin-bottom: 30px;
+
+    max-width: 530px;
+}
+
+
+/* =====================================================
+   VIDEO SECTION
+   ===================================================== */
+
+.video-section {
+    padding: 110px 8%;
+
+    background: #07111d;
+
+    display: grid;
+
+    grid-template-columns: 0.8fr 1.2fr;
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+.video-content > p:not(.section-label) {
+    color: #95a7b9;
+
+    line-height: 1.8;
+
+    max-width: 500px;
+}
+
+.maintenance-video {
+    height: 420px;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.maintenance-video video {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =====================================================
+   CTA
+   ===================================================== */
+
+.cta-section {
+    padding: 120px 20px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(23, 139, 220, 0.17),
+            transparent 55%
+        ),
+        #050b14;
+}
+
+.cta-content {
+    max-width: 800px;
+
+    margin: auto;
+}
+
+.cta-content > p:not(.section-label) {
+    color: #96a8ba;
+
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.footer {
+    padding: 55px 8%;
+
+    background: #030811;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+    color: #7e91a5;
+}
+
+.footer-logo {
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+}
+
+.footer-links {
+    display: flex;
+
+    gap: 25px;
+
+    margin: 25px 0;
+}
+
+.footer-links a {
+    font-size: 13px;
+
+    color: #8295a9;
+
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: #39aaf2;
+}
+
+.copyright {
+    font-size: 12px;
+
+    color: #536577;
+}
+
+
+/* =====================================================
+   RESPONSIVE DESIGN
+   ===================================================== */
+
+@media (max-width: 1000px) {
+
+    .desktop-nav {
+        gap: 18px;
+    }
+
+    .feature-grid-new {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .intro-section,
+    .video-section {
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+    }
+
+    .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 760px) {
+
+    .navbar {
+        height: 70px;
+
+        padding: 0 5%;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .login-btn {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .mobile-nav {
+        position: absolute;
+
+        top: 70px;
+        left: 0;
+
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        background: #07111d;
+
+        border-top: 1px solid rgba(255,255,255,0.08);
+
+        transform: translateY(-20px);
+
+        opacity: 0;
+
+        pointer-events: none;
+
+        transition: 0.3s;
+    }
+
+    .mobile-nav.active {
+        transform: translateY(0);
+
+        opacity: 1;
+
+        pointer-events: auto;
+    }
+
+    .mobile-nav a {
+        padding: 16px 25px;
+
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+
+        color: #c6d2df;
+    }
+
+    .hero-content-new {
+        margin-left: 6%;
+
+        margin-right: 6%;
+
+        padding-top: 70px;
+    }
+
+    .hero-content-new h1 {
+        font-size: 56px;
+
+        letter-spacing: -2px;
+    }
+
+    .hero-content-new > p {
+        font-size: 19px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .stats-section {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-box {
+        padding: 30px 10px;
+    }
+
+    .stat-box h2 {
+        font-size: 28px;
+    }
+
+    .intro-section,
+    .features-section,
+    .video-section {
+        padding: 75px 6%;
+    }
+
+    .intro-image {
+        height: 330px;
+    }
+
+    .feature-grid-new {
+        grid-template-columns: 1fr;
+    }
+
+    .aircraft-showcase {
+        min-height: 550px;
+    }
+
+    .showcase-content {
+        margin-left: 6%;
+
+        margin-right: 6%;
+    }
+
+    .maintenance-video {
+        height: 300px;
+    }
+
+    .footer {
+        padding: 45px 6%;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .hero-content-new h1 {
+        font-size: 46px;
+    }
+
+    .hero-badge {
+        font-size: 9px;
+
+        letter-spacing: 1.5px;
+    }
+
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-box {
+        border-right: none;
+
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+}

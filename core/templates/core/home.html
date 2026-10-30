@@ -1,0 +1,825 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Aircraft Maintenance</title>
+
+    <!-- Main CSS - DO NOT REMOVE -->
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="{% static 'core/css/home.css' %}">
+
+</head>
+
+
+<body class="home-page">
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+        ✈️ <span>FlightFix</span>
+    </div>
+
+
+    <nav class="desktop-nav">
+
+        <a href="/">Home</a>
+
+        <a href="/dashboard/">Dashboard</a>
+
+        <a href="/aircraft/">Aircraft</a>
+
+        <a href="/maintenance/">Maintenance</a>
+
+        <a href="/inventory/">Inventory</a>
+
+        <a href="/technicians/">Technicians</a>
+
+    </nav>
+
+
+    <button class="menu-toggle" onclick="toggleMenu()">
+        ☰
+    </button>
+
+
+    <div class="mobile-nav" id="mobileNav">
+
+        <a href="/">Home</a>
+        <a href="/dashboard/">Dashboard</a>
+        <a href="/aircraft/">Aircraft</a>
+        <a href="/maintenance/">Maintenance</a>
+        <a href="/inventory/">Inventory</a>
+        <a href="/technicians/">Technicians</a>
+
+    </div>
+
+
+    {% if user.is_authenticated %}
+
+        <a href="/logout/" class="login-btn">
+            Logout
+        </a>
+
+    {% else %}
+
+        <a href="/login/" class="login-btn">
+            Login
+        </a>
+
+    {% endif %}
+
+</header>
+
+
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="home-hero">
+
+
+    <!-- DYNAMIC BACKGROUND VIDEO -->
+
+    <video
+        id="heroBackgroundVideo"
+        class="home-hero-video"
+        autoplay
+        muted
+        playsinline
+    >
+
+        <source
+            src="{% static 'core/videos/aircraft.mp4' %}"
+            type="video/mp4"
+        >
+
+    </video>
+
+
+    <!-- DARK OVERLAY -->
+
+    <div class="home-hero-overlay"></div>
+
+
+    <!-- HERO CONTENT -->
+
+    <div class="home-hero-content">
+
+
+        <div class="home-eyebrow">
+
+            ✈ AIRCRAFT MAINTENANCE MANAGEMENT
+
+        </div>
+
+
+        <h1>
+
+            KEEP AIRCRAFT
+            <span>FLYING.</span>
+
+        </h1>
+
+
+        <p class="home-hero-subtitle">
+
+            Smarter maintenance.
+            Better planning.
+            Safer skies.
+
+        </p>
+
+
+        <p class="home-hero-description">
+
+            FlightFix brings aircraft maintenance,
+            technicians, spare parts and maintenance
+            operations together in one intelligent platform.
+
+        </p>
+
+
+        <div class="home-buttons">
+
+
+            <a
+                href="/aircraft/"
+                class="home-primary-btn"
+            >
+
+                Explore Aircraft →
+
+            </a>
+
+
+            <a
+                href="/dashboard/"
+                class="home-secondary-btn"
+            >
+
+                View Dashboard
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- SCROLL INDICATOR -->
+
+    <div class="home-scroll">
+
+        SCROLL TO EXPLORE
+
+        <div class="home-scroll-arrow">
+            ↓
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     STATISTICS
+===================================================== -->
+
+<section class="home-stats">
+
+
+    <div class="home-stat">
+
+        <h2>250+</h2>
+
+        <p>
+            Aircraft Managed
+        </p>
+
+    </div>
+
+
+    <div class="home-stat">
+
+        <h2>1,200+</h2>
+
+        <p>
+            Maintenance Tasks
+        </p>
+
+    </div>
+
+
+    <div class="home-stat">
+
+        <h2>85+</h2>
+
+        <p>
+            Technicians
+        </p>
+
+    </div>
+
+
+    <div class="home-stat">
+
+        <h2>5,000+</h2>
+
+        <p>
+            Spare Parts
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     INTRODUCTION SECTION
+===================================================== -->
+
+<section class="home-intro">
+
+
+    <div class="home-image-box">
+
+        <img
+            src="{% static 'core/images/aircraft-maintenance.jpg' %}"
+            alt="Aircraft Maintenance"
+        >
+
+    </div>
+
+
+    <div class="home-intro-content">
+
+
+        <p class="home-section-label">
+
+            THE FLIGHTFIX PLATFORM
+
+        </p>
+
+
+        <h2>
+
+            Built for the
+            <span>future of aviation.</span>
+
+        </h2>
+
+
+        <p class="home-intro-text">
+
+            FlightFix is designed to simplify aircraft
+            maintenance operations by connecting aircraft,
+            technicians, maintenance schedules and spare
+            parts in one intelligent platform.
+
+        </p>
+
+
+        <a
+            href="/dashboard/"
+            class="home-outline-btn"
+        >
+
+            Explore Platform →
+
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES SECTION
+===================================================== -->
+
+<section class="home-features">
+
+
+    <div class="home-features-heading">
+
+
+        <p class="home-section-label">
+
+            POWERFUL FEATURES
+
+        </p>
+
+
+        <h2>
+
+            Everything you need to
+            <span>keep aircraft ready.</span>
+
+        </h2>
+
+
+    </div>
+
+
+
+    <div class="home-feature-grid">
+
+
+        <!-- FEATURE 1 -->
+
+        <div class="home-feature-card">
+
+
+            <div class="home-feature-number">
+                01
+            </div>
+
+
+            <div class="home-feature-icon">
+                ✈️
+            </div>
+
+
+            <h3>
+                Aircraft Management
+            </h3>
+
+
+            <p>
+
+                Manage aircraft information,
+                status, maintenance history and
+                upcoming tasks from one platform.
+
+            </p>
+
+
+            <a href="/aircraft/">
+                Explore →
+            </a>
+
+
+        </div>
+
+
+
+        <!-- FEATURE 2 -->
+
+        <div class="home-feature-card">
+
+
+            <div class="home-feature-number">
+                02
+            </div>
+
+
+            <div class="home-feature-icon">
+                🔧
+            </div>
+
+
+            <h3>
+                Maintenance Planning
+            </h3>
+
+
+            <p>
+
+                Plan inspections, repairs and
+                preventive maintenance while
+                keeping aircraft ready.
+
+            </p>
+
+
+            <a href="/maintenance/">
+                Explore →
+            </a>
+
+
+        </div>
+
+
+
+        <!-- FEATURE 3 -->
+
+        <div class="home-feature-card">
+
+
+            <div class="home-feature-number">
+                03
+            </div>
+
+
+            <div class="home-feature-icon">
+                📦
+            </div>
+
+
+            <h3>
+                Spare Parts
+            </h3>
+
+
+            <p>
+
+                Track inventory, monitor stock
+                levels and maintain availability
+                of critical components.
+
+            </p>
+
+
+            <a href="/inventory/">
+                Explore →
+            </a>
+
+
+        </div>
+
+
+
+        <!-- FEATURE 4 -->
+
+        <div class="home-feature-card">
+
+
+            <div class="home-feature-number">
+                04
+            </div>
+
+
+            <div class="home-feature-icon">
+                👨‍🔧
+            </div>
+
+
+            <h3>
+                Technician Management
+            </h3>
+
+
+            <p>
+
+                Assign maintenance tasks and
+                manage technician activities
+                efficiently.
+
+            </p>
+
+
+            <a href="/technicians/">
+                Explore →
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     AIRCRAFT SHOWCASE
+===================================================== -->
+
+<section class="home-showcase">
+
+
+    <div class="home-showcase-overlay"></div>
+
+
+    <div class="home-showcase-content">
+
+
+        <div class="home-showcase-content-inner">
+
+
+            <p class="home-section-label">
+
+                AIRCRAFT OPERATIONS
+
+            </p>
+
+
+            <h2>
+
+                Every aircraft.
+                <br>
+
+                <span>Every mission.</span>
+
+            </h2>
+
+
+            <p>
+
+                From commercial aviation to advanced
+                aircraft, FlightFix helps maintenance
+                teams keep every aircraft ready for
+                its next mission.
+
+            </p>
+
+
+            <a
+                href="/aircraft/"
+                class="home-primary-btn"
+            >
+
+                View Aircraft →
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     MAINTENANCE VIDEO SECTION
+===================================================== -->
+
+<section class="home-video">
+
+
+    <div class="home-video-content">
+
+
+        <p class="home-section-label">
+
+            SMARTER MAINTENANCE
+
+        </p>
+
+
+        <h2>
+
+            Maintenance that
+            <span>never stops.</span>
+
+        </h2>
+
+
+        <p>
+
+            Stay ahead of maintenance requirements
+            with centralized planning, real-time
+            information and efficient task management.
+
+        </p>
+
+
+    </div>
+
+
+
+    <div class="home-video-box">
+
+
+        <video
+            autoplay
+            muted
+            loop
+            playsinline
+        >
+
+            <source
+                src="{% static 'core/videos/maintenance.mp4' %}"
+                type="video/mp4"
+            >
+
+        </video>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     CALL TO ACTION
+===================================================== -->
+
+<section class="home-cta">
+
+
+    <div class="home-cta-inner">
+
+
+        <p class="home-section-label">
+
+            FLIGHTFIX
+
+        </p>
+
+
+        <h2>
+
+            Ready for
+            <span>smarter aviation?</span>
+
+        </h2>
+
+
+        <p class="home-cta-text">
+
+            Manage aircraft maintenance from
+            one intelligent platform.
+
+        </p>
+
+
+        <a
+            href="/dashboard/"
+            class="home-primary-btn"
+        >
+
+            Get Started →
+
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="home-footer">
+
+
+    <div class="home-footer-logo">
+
+        ✈️ FlightFix
+
+    </div>
+
+
+    <p>
+
+        Aircraft Maintenance Efficiency Platform
+
+    </p>
+
+
+    <div class="home-footer-links">
+
+        <a href="/">Home</a>
+
+        <a href="/dashboard/">Dashboard</a>
+
+        <a href="/aircraft/">Aircraft</a>
+
+        <a href="/maintenance/">Maintenance</a>
+
+        <a href="/inventory/">Inventory</a>
+
+        <a href="/technicians/">Technicians</a>
+
+    </div>
+
+
+    <p>
+
+        © 2026 FlightFix. All rights reserved.
+
+    </p>
+
+
+</footer>
+
+
+
+<!-- =====================================================
+     ORIGINAL JAVASCRIPT
+===================================================== -->
+
+<script src="{% static 'core/js/script.js' %}"></script>
+
+
+
+<!-- =====================================================
+     MOBILE MENU
+===================================================== -->
+
+<script>
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobileNav");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+
+
+
+<!-- =====================================================
+     DYNAMIC HERO BACKGROUND
+===================================================== -->
+
+<script>
+
+const heroVideo =
+    document.getElementById("heroBackgroundVideo");
+
+
+const heroVideos = [
+
+    "{% static 'core/videos/aircraft.mp4' %}",
+
+    "{% static 'core/videos/Jet-engine.mp4' %}"
+
+];
+
+
+let currentHeroVideo = 0;
+
+
+heroVideo.addEventListener("ended", function () {
+
+
+    currentHeroVideo++;
+
+
+    if (currentHeroVideo >= heroVideos.length) {
+
+        currentHeroVideo = 0;
+
+    }
+
+
+    heroVideo.style.opacity = "0";
+
+
+    setTimeout(function () {
+
+
+        heroVideo.src =
+            heroVideos[currentHeroVideo];
+
+
+        heroVideo.load();
+
+
+        heroVideo.play();
+
+
+        heroVideo.style.opacity = "1";
+
+
+    }, 800);
+
+
+});
+
+
+</script>
+
+
+</body>
+
+</html>

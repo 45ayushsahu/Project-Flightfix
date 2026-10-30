@@ -1,0 +1,1 @@
+console.log("FlightFix frontend loaded successfully!");

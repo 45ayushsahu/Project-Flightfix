@@ -1,0 +1,224 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Add Spare Part</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <nav>
+
+            <a href="/">Home</a>
+
+            <a href="/dashboard/">
+                Dashboard
+            </a>
+
+            <a href="/aircraft/">
+                Aircraft
+            </a>
+
+            <a href="/maintenance/">
+                Maintenance
+            </a>
+
+            <a href="/inventory/">
+                Inventory
+            </a>
+
+            <a href="/technicians/">
+                Technicians
+            </a>
+
+        </nav>
+
+        <a href="/login/" class="login-btn">
+            Login
+        </a>
+
+    </header>
+
+
+    <!-- ================= FORM ================= -->
+
+    <main class="form-page">
+
+        <div class="form-container">
+
+            <div class="form-header">
+
+                <p class="tagline">
+                    FLIGHTFIX MANAGEMENT SYSTEM
+                </p>
+
+                <h1>
+                    Add Spare Part
+                </h1>
+
+                <p>
+                    Add a new spare part to the inventory.
+                </p>
+
+            </div>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- Part Number -->
+
+                <div class="form-group">
+
+                    <label>
+                        Part Number
+                    </label>
+
+                    <input
+                        type="text"
+                        name="part_number"
+                        placeholder="e.g. BP-2045"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Part Name -->
+
+                <div class="form-group">
+
+                    <label>
+                        Part Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="part_name"
+                        placeholder="e.g. Brake Pads"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Category -->
+
+                <div class="form-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <input
+                        type="text"
+                        name="category"
+                        placeholder="e.g. Brake System"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Quantity -->
+
+                <div class="form-group">
+
+                    <label>
+                        Quantity
+                    </label>
+
+                    <input
+                        type="number"
+                        name="quantity"
+                        min="0"
+                        placeholder="Enter quantity"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Minimum Stock -->
+
+                <div class="form-group">
+
+                    <label>
+                        Minimum Stock Level
+                    </label>
+
+                    <input
+                        type="number"
+                        name="minimum_stock"
+                        min="0"
+                        value="5"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="/inventory/"
+                        class="secondary-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        + Add Spare Part
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

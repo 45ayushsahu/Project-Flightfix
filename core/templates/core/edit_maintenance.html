@@ -1,0 +1,240 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Edit Work Order</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/aircraft/">Aircraft</a>
+            <a href="/maintenance/" class="active">Maintenance</a>
+            <a href="/inventory/">Inventory</a>
+            <a href="/technicians/">Technicians</a>
+        </nav>
+
+        <a href="/login/" class="login-btn">
+            Login
+        </a>
+
+    </header>
+
+
+    <!-- Edit Work Order -->
+
+    <main class="dashboard">
+
+        <div class="dashboard-header">
+
+            <div>
+                <p class="tagline">MAINTENANCE MANAGEMENT</p>
+
+                <h1>Edit Work Order</h1>
+
+                <p>
+                    Update maintenance work order details.
+                </p>
+            </div>
+
+        </div>
+
+
+        <section class="dashboard-panel">
+
+            <form method="POST" class="aircraft-form">
+
+                {% csrf_token %}
+
+
+                <!-- Aircraft -->
+
+                <div class="form-group">
+
+                    <label for="aircraft">
+                        Aircraft
+                    </label>
+
+                    <select
+                        id="aircraft"
+                        name="aircraft"
+                        required
+                    >
+
+                        {% for aircraft in aircraft_list %}
+
+                        <option
+                            value="{{ aircraft.id }}"
+                            {% if maintenance.aircraft.id == aircraft.id %}selected{% endif %}
+                        >
+                            {{ aircraft.registration_number }} - {{ aircraft.model }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- Maintenance Type -->
+
+                <div class="form-group">
+
+                    <label for="maintenance_type">
+                        Maintenance Type
+                    </label>
+
+                    <input
+                        type="text"
+                        id="maintenance_type"
+                        name="maintenance_type"
+                        value="{{ maintenance.maintenance_type }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Description -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="4"
+                    >{{ maintenance.description }}</textarea>
+
+                </div>
+
+
+                <!-- Date and Status -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="scheduled_date">
+                            Scheduled Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="scheduled_date"
+                            name="scheduled_date"
+                            value="{{ maintenance.scheduled_date|date:'Y-m-d' }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="status">
+                            Status
+                        </label>
+
+                        <select
+                            id="status"
+                            name="status"
+                            required
+                        >
+
+                            <option
+                                value="Scheduled"
+                                {% if maintenance.status == "Scheduled" %}selected{% endif %}
+                            >
+                                Scheduled
+                            </option>
+
+                            <option
+                                value="In Progress"
+                                {% if maintenance.status == "In Progress" %}selected{% endif %}
+                            >
+                                In Progress
+                            </option>
+
+                            <option
+                                value="Completed"
+                                {% if maintenance.status == "Completed" %}selected{% endif %}
+                            >
+                                Completed
+                            </option>
+
+                            <option
+                                value="Overdue"
+                                {% if maintenance.status == "Overdue" %}selected{% endif %}
+                            >
+                                Overdue
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="/maintenance/"
+                        class="secondary-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Update Work Order
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

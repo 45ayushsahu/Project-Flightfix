@@ -1,0 +1,592 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FlightFix | Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'core/css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        ✈️ <span>FlightFix</span>
+    </div>
+
+
+    <!-- DESKTOP NAVIGATION -->
+
+    <nav class="desktop-nav">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/aircraft/">
+            Aircraft
+        </a>
+
+        <a href="/maintenance/">
+            Maintenance
+        </a>
+
+        <a href="/inventory/">
+            Inventory
+        </a>
+
+        <a href="/technicians/">
+            Technicians
+        </a>
+
+    </nav>
+
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button
+        class="menu-toggle"
+        onclick="toggleMenu()"
+        aria-label="Open navigation menu"
+    >
+        ☰
+    </button>
+
+
+    <!-- MOBILE NAVIGATION -->
+
+    <div
+        class="mobile-nav"
+        id="mobileNav"
+    >
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/aircraft/">
+            Aircraft
+        </a>
+
+        <a href="/maintenance/">
+            Maintenance
+        </a>
+
+        <a href="/inventory/">
+            Inventory
+        </a>
+
+        <a href="/technicians/">
+            Technicians
+        </a>
+
+    </div>
+
+
+    <!-- LOGIN / LOGOUT -->
+
+    {% if user.is_authenticated %}
+
+        <a
+            href="/logout/"
+            class="login-btn"
+        >
+            Logout
+        </a>
+
+    {% else %}
+
+        <a
+            href="/login/"
+            class="login-btn"
+        >
+            Login
+        </a>
+
+    {% endif %}
+
+</header>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <main class="dashboard">
+
+
+        <!-- Dashboard Header -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <p class="tagline">
+                    FLIGHTFIX MANAGEMENT SYSTEM
+                </p>
+
+                <h1>
+                    Maintenance Dashboard
+                </h1>
+
+                <p>
+                    Monitor aircraft, maintenance activities
+                    and inventory from one place.
+                </p>
+
+            </div>
+
+
+            <a
+                href="/maintenance/add/"
+                class="primary-btn"
+            >
+                + New Maintenance
+            </a>
+
+        </div>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- Total Aircraft -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✈️
+                </div>
+
+                <p>
+                    Total Aircraft
+                </p>
+
+                <h2>
+                    {{ total_aircraft }}
+                </h2>
+
+                <span>
+                    Aircraft in fleet
+                </span>
+
+            </div>
+
+
+
+            <!-- Operational -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🟢
+                </div>
+
+                <p>
+                    Operational
+                </p>
+
+                <h2>
+                    {{ operational }}
+                </h2>
+
+                <span>
+                    Currently active
+                </span>
+
+            </div>
+
+
+
+            <!-- Under Maintenance -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔧
+                </div>
+
+                <p>
+                    Under Maintenance
+                </p>
+
+                <h2>
+                    {{ under_maintenance }}
+                </h2>
+
+                <span>
+                    Maintenance ongoing
+                </span>
+
+            </div>
+
+
+
+            <!-- Pending Tasks -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⚠️
+                </div>
+
+                <p>
+                    Pending Tasks
+                </p>
+
+                <h2>
+                    {{ pending_tasks }}
+                </h2>
+
+                <span>
+                    Require attention
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= AIRCRAFT STATUS + UPCOMING MAINTENANCE ================= -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- ================= AIRCRAFT STATUS ================= -->
+
+            <div class="dashboard-panel">
+
+
+                <div class="panel-header">
+
+                    <h2>
+                        Aircraft Status
+                    </h2>
+
+                    <a href="/aircraft/">
+                        View All
+                    </a>
+
+                </div>
+
+
+
+                <div class="aircraft-status-list">
+
+
+                    {% for aircraft in aircraft_list %}
+
+
+                    <div class="status-item">
+
+
+                        <div>
+
+                            <strong>
+                                {{ aircraft.registration_number }}
+                            </strong>
+
+                            <small>
+                                {{ aircraft.model }}
+                            </small>
+
+                        </div>
+
+
+
+                        {% if aircraft.status == "Operational" %}
+
+                            <span class="status-badge operational">
+                                {{ aircraft.status }}
+                            </span>
+
+
+                        {% elif aircraft.status == "Maintenance" %}
+
+                            <span class="status-badge maintenance">
+                                {{ aircraft.status }}
+                            </span>
+
+
+                        {% else %}
+
+                            <span class="status-badge warning">
+                                {{ aircraft.status }}
+                            </span>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    {% empty %}
+
+
+                    <div class="status-item">
+
+                        <div>
+
+                            <strong>
+                                No aircraft found
+                            </strong>
+
+                            <small>
+                                No aircraft available in the fleet.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= UPCOMING MAINTENANCE ================= -->
+
+            <div class="dashboard-panel">
+
+
+                <div class="panel-header">
+
+                    <h2>
+                        Upcoming Maintenance
+                    </h2>
+
+                    <a href="/maintenance/">
+                        View All
+                    </a>
+
+                </div>
+
+
+
+                <div class="maintenance-list">
+
+
+                    {% for item in upcoming_maintenance %}
+
+
+                    <div class="maintenance-item">
+
+
+                        <div class="maintenance-date">
+
+                            <strong>
+                                {{ item.scheduled_date|date:"d" }}
+                            </strong>
+
+                            <span>
+                                {{ item.scheduled_date|date:"M"|upper }}
+                            </span>
+
+                        </div>
+
+
+
+                        <div>
+
+                            <strong>
+                                {{ item.maintenance_type }}
+                            </strong>
+
+                            <small>
+                                Aircraft
+                                {{ item.aircraft.registration_number }}
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+
+                    {% empty %}
+
+
+                    <div class="maintenance-item">
+
+                        <div>
+
+                            <strong>
+                                No upcoming maintenance
+                            </strong>
+
+                            <small>
+                                No scheduled maintenance available.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+       <!-- ================= INVENTORY ALERTS ================= -->
+
+<section class="dashboard-panel inventory-panel">
+
+    <div class="panel-header">
+
+        <h2>
+            Inventory Alerts
+        </h2>
+
+        <a href="/inventory/">
+            View Inventory
+        </a>
+
+    </div>
+
+
+    <div class="inventory-grid">
+
+        {% for item in inventory_alerts %}
+
+        <div class="inventory-item">
+
+            {% if item.get_status == "Out of Stock" %}
+
+                <span>🔴</span>
+
+            {% elif item.get_status == "Low Stock" %}
+
+                <span>🟡</span>
+
+            {% else %}
+
+                <span>🟢</span>
+
+            {% endif %}
+
+
+            <div>
+
+                <strong>
+                    {{ item.part_name }}
+                </strong>
+
+                <small>
+
+                    {% if item.get_status == "Out of Stock" %}
+
+                        Out of stock
+
+                    {% elif item.get_status == "Low Stock" %}
+
+                        Only {{ item.quantity }} units remaining
+
+                    {% else %}
+
+                        {{ item.quantity }} units available
+
+                    {% endif %}
+
+                </small>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="inventory-item">
+
+            <span>📦</span>
+
+            <div>
+
+                <strong>
+                    No inventory items
+                </strong>
+
+                <small>
+                    No spare parts available.
+                </small>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+
+    <script>
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobileNav");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+
+</body>
+
+</html>

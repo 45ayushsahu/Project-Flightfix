@@ -1,0 +1,418 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Technicians</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <nav>
+
+            <a href="/">Home</a>
+
+            <a href="/dashboard/">
+                Dashboard
+            </a>
+
+            <a href="/aircraft/">
+                Aircraft
+            </a>
+
+            <a href="/maintenance/">
+                Maintenance
+            </a>
+
+            <a href="/inventory/">
+                Inventory
+            </a>
+
+            <a href="/technicians/" class="active">
+                Technicians
+            </a>
+
+        </nav>
+
+       {% if user.is_authenticated %}
+    <a href="/logout/" class="login-btn">Logout</a>
+{% else %}
+    <a href="/login/" class="login-btn">Login</a>
+{% endif %}
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="dashboard">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <p class="tagline">
+                    FLIGHTFIX MANAGEMENT SYSTEM
+                </p>
+
+                <h1>
+                    Technician Management
+                </h1>
+
+                <p>
+                    Manage maintenance technicians,
+                    assignments, availability and work activities.
+                </p>
+
+            </div>
+
+
+          <a
+    href="/technicians/add/"
+    class="primary-btn"
+>
+    + Add Technician
+</a>
+
+        </div>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- Total -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👨‍🔧
+                </div>
+
+                <p>
+                    Total Technicians
+                </p>
+
+                <h2>
+                    {{ total_technicians }}
+                </h2>
+
+                <span>
+                    Registered technicians
+                </span>
+
+            </div>
+
+
+
+            <!-- Available -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🟢
+                </div>
+
+                <p>
+                    Available
+                </p>
+
+                <h2>
+                    {{ available }}
+                </h2>
+
+                <span>
+                    Ready for assignment
+                </span>
+
+            </div>
+
+
+
+            <!-- On Task -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔧
+                </div>
+
+                <p>
+                    On Task
+                </p>
+
+                <h2>
+                    {{ on_task }}
+                </h2>
+
+                <span>
+                    Currently assigned
+                </span>
+
+            </div>
+
+
+
+            <!-- On Leave -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🏖️
+                </div>
+
+                <p>
+                    On Leave
+                </p>
+
+                <h2>
+                    {{ on_leave }}
+                </h2>
+
+                <span>
+                    Currently unavailable
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= TECHNICIAN DIRECTORY ================= -->
+
+        <section class="dashboard-panel technician-panel">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Technician Directory
+                    </h2>
+
+                    <p>
+                        View and manage maintenance technicians.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="maintenance-table">
+
+
+                <!-- TABLE HEADER -->
+
+                <div class="maintenance-table-row maintenance-table-header">
+
+                    <span>
+                        Technician
+                    </span>
+
+                    <span>
+                        Specialization
+                    </span>
+
+                    <span>
+                        Experience
+                    </span>
+
+                    <span>
+                        Current Task
+                    </span>
+
+                    <span>
+                        Status
+                    </span>
+
+                    <span>
+                        Actions
+                    </span>
+
+                </div>
+
+
+
+                <!-- DATABASE DATA -->
+
+                {% for technician in technician_list %}
+
+                <div class="maintenance-table-row">
+
+
+                    <!-- TECHNICIAN -->
+
+                    <span>
+
+                        <strong>
+                            {{ technician.name }}
+                        </strong>
+
+                        <small>
+                            {{ technician.employee_id }}
+                        </small>
+
+                    </span>
+
+
+
+                    <!-- SPECIALIZATION -->
+
+                    <span>
+                        {{ technician.specialization }}
+                    </span>
+
+
+
+                    <!-- EXPERIENCE -->
+
+                    <span>
+                        {{ technician.experience }} Years
+                    </span>
+
+
+
+                    <!-- CURRENT TASK -->
+
+                    <span>
+
+                        {% if technician.current_task %}
+
+                            {{ technician.current_task }}
+
+                        {% else %}
+
+                            —
+
+                        {% endif %}
+
+                    </span>
+
+
+
+                    <!-- STATUS -->
+
+                    <span>
+
+                        {% if technician.status == "Available" %}
+
+                            <span class="status-badge operational">
+                                Available
+                            </span>
+
+                        {% elif technician.status == "On Task" %}
+
+                            <span class="status-badge maintenance">
+                                On Task
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge warning">
+                                On Leave
+                            </span>
+
+                        {% endif %}
+
+                    </span>
+
+
+
+                    <!-- ACTIONS -->
+
+   <span class="action-buttons">
+
+    <a
+        href="/technicians/edit/{{ technician.id }}/"
+        class="edit-btn"
+    >
+        ✏️ Edit
+    </a>
+
+    <a
+        href="/technicians/delete/{{ technician.id }}/"
+        class="delete-btn"
+    >
+        🗑️ Delete
+    </a>
+
+</span>
+
+                    
+
+
+                </div>
+
+
+                {% empty %}
+
+
+                <div class="maintenance-table-row">
+
+                    <span>
+                        No technicians found.
+                    </span>
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

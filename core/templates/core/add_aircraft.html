@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Add Aircraft</title>
+
+    <link rel="stylesheet"
+          href="{% static 'core/css/style.css' %}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        ✈️ <span>FlightFix</span>
+    </div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/aircraft/" class="active">Aircraft</a>
+        <a href="/maintenance/">Maintenance</a>
+        <a href="/inventory/">Inventory</a>
+        <a href="/technicians/">Technicians</a>
+    </nav>
+
+    <a href="/login/" class="login-btn">
+        Login
+    </a>
+
+</header>
+
+
+<main class="form-page">
+
+    <div class="form-container">
+
+        <div class="form-header">
+
+            <p class="tagline">
+                FLEET MANAGEMENT
+            </p>
+
+            <h1>Add New Aircraft</h1>
+
+            <p>
+                Enter aircraft information to add it to the FlightFix fleet.
+            </p>
+
+        </div>
+
+
+        <form method="POST" class="aircraft-form">
+
+            {% csrf_token %}
+
+
+            <div class="form-group">
+
+                <label>
+                    Registration Number
+                </label>
+
+                <input
+                    type="text"
+                    name="registration_number"
+                    placeholder="Example: AI-701"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Aircraft Model
+                </label>
+
+                <input
+                    type="text"
+                    name="model"
+                    placeholder="Example: Airbus A320"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select name="status" required>
+
+                    <option value="Operational">
+                        Operational
+                    </option>
+
+                    <option value="Maintenance">
+                        Maintenance
+                    </option>
+
+                    <option value="Inspection Due">
+                        Inspection Due
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Last Maintenance
+                    </label>
+
+                    <input
+                        type="date"
+                        name="last_maintenance"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Next Maintenance
+                    </label>
+
+                    <input
+                        type="date"
+                        name="next_maintenance"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="/aircraft/"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Add Aircraft
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="logo">
+        ✈️ <span>FlightFix</span>
+    </div>
+
+    <p>
+        Aircraft Maintenance Efficiency Platform
+    </p>
+
+</footer>
+
+</body>
+</html>

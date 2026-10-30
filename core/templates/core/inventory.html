@@ -1,0 +1,394 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Inventory</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <nav>
+
+            <a href="/">Home</a>
+
+            <a href="/dashboard/">
+                Dashboard
+            </a>
+
+            <a href="/aircraft/">
+                Aircraft
+            </a>
+
+            <a href="/maintenance/">
+                Maintenance
+            </a>
+
+            <a href="/inventory/" class="active">
+                Inventory
+            </a>
+
+            <a href="/technicians/">
+                Technicians
+            </a>
+
+        </nav>
+
+      {% if user.is_authenticated %}
+    <a href="/logout/" class="login-btn">Logout</a>
+{% else %}
+    <a href="/login/" class="login-btn">Login</a>
+{% endif %}
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="dashboard">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <p class="tagline">
+                    FLIGHTFIX MANAGEMENT SYSTEM
+                </p>
+
+                <h1>
+                    Inventory Management
+                </h1>
+
+                <p>
+                    Track spare parts, stock levels and inventory
+                    availability across your maintenance operations.
+                </p>
+
+            </div>
+
+
+            <a
+                href="/inventory/add/"
+                class="primary-btn"
+            >
+                + Add Spare Part
+            </a>
+
+        </div>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📦
+                </div>
+
+                <p>
+                    Total Parts
+                </p>
+
+                <h2>
+                    {{ total_parts }}
+                </h2>
+
+                <span>
+                    Parts in inventory
+                </span>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🟢
+                </div>
+
+                <p>
+                    In Stock
+                </p>
+
+                <h2>
+                    {{ in_stock }}
+                </h2>
+
+                <span>
+                    Available parts
+                </span>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⚠️
+                </div>
+
+                <p>
+                    Low Stock
+                </p>
+
+                <h2>
+                    {{ low_stock }}
+                </h2>
+
+                <span>
+                    Need replenishment
+                </span>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔴
+                </div>
+
+                <p>
+                    Out of Stock
+                </p>
+
+                <h2>
+                    {{ out_of_stock }}
+                </h2>
+
+                <span>
+                    Currently unavailable
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= INVENTORY TABLE ================= -->
+
+        <section class="dashboard-panel inventory-panel">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Spare Parts Inventory
+                    </h2>
+
+                    <p>
+                        View and manage current spare parts and stock levels.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="maintenance-table">
+
+
+                <!-- TABLE HEADER -->
+
+                <div class="maintenance-table-row maintenance-table-header">
+
+                    <span>
+                        Part Number
+                    </span>
+
+                    <span>
+                        Part Name
+                    </span>
+
+                    <span>
+                        Category
+                    </span>
+
+                    <span>
+                        Stock
+                    </span>
+
+                    <span>
+                        Status
+                    </span>
+
+                    <span>
+                        Actions
+                    </span>
+
+                </div>
+
+
+
+                <!-- DATABASE DATA -->
+
+                {% for item in inventory_list %}
+
+                <div class="maintenance-table-row">
+
+
+                    <!-- PART NUMBER -->
+
+                    <span>
+
+                        <strong>
+                            {{ item.part_number }}
+                        </strong>
+
+                    </span>
+
+
+
+                    <!-- PART NAME -->
+
+                    <span>
+                        {{ item.part_name }}
+                    </span>
+
+
+
+                    <!-- CATEGORY -->
+
+                    <span>
+                        {{ item.category }}
+                    </span>
+
+
+
+                    <!-- STOCK -->
+
+                    <span>
+                        {{ item.quantity }} units
+                    </span>
+
+
+
+                    <!-- STATUS -->
+
+                    <span>
+
+                        {% if item.get_status == "In Stock" %}
+
+                            <span class="status-badge operational">
+                                In Stock
+                            </span>
+
+                        {% elif item.get_status == "Low Stock" %}
+
+                            <span class="status-badge warning">
+                                Low Stock
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge danger">
+                                Out of Stock
+                            </span>
+
+                        {% endif %}
+
+                    </span>
+
+
+
+                    <!-- ACTIONS -->
+
+                   <span class="action-buttons">
+
+    <a
+        href="/inventory/edit/{{ item.id }}/"
+        class="edit-btn"
+    >
+        ✏️ Edit
+    </a>
+
+    <a
+        href="/inventory/delete/{{ item.id }}/"
+        class="delete-btn"
+    >
+        🗑️ Delete
+    </a>
+
+</span>
+
+
+                </div>
+
+
+                {% empty %}
+
+
+                <div class="maintenance-table-row">
+
+                    <span>
+                        No inventory records found.
+                    </span>
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

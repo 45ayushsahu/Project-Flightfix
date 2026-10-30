@@ -1,0 +1,213 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Aircraft | FlightFix</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            ✈️ FlightFix
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard/">Dashboard</a>
+            <a href="/aircraft/">Aircraft</a>
+            <a href="/maintenance/">Maintenance</a>
+            <a href="/inventory/">Inventory</a>
+            <a href="/technicians/">Technicians</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Edit Aircraft -->
+
+    <section class="form-section">
+
+        <div class="form-container">
+
+            <h1>Edit Aircraft</h1>
+
+            <p class="form-subtitle">
+                Update aircraft information and maintenance details.
+            </p>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- Registration Number -->
+
+                <div class="form-group">
+
+                    <label for="registration_number">
+                        Registration Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registration_number"
+                        name="registration_number"
+                        value="{{ aircraft.registration_number }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Aircraft Model -->
+
+                <div class="form-group">
+
+                    <label for="model">
+                        Aircraft Model
+                    </label>
+
+                    <input
+                        type="text"
+                        id="model"
+                        name="model"
+                        value="{{ aircraft.model }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div class="form-group">
+
+                    <label for="status">
+                        Status
+                    </label>
+
+                    <select
+                        id="status"
+                        name="status"
+                        required
+                    >
+
+                        <option
+                            value="Operational"
+                            {% if aircraft.status == "Operational" %}selected{% endif %}
+                        >
+                            Operational
+                        </option>
+
+                        <option
+                            value="Maintenance"
+                            {% if aircraft.status == "Maintenance" %}selected{% endif %}
+                        >
+                            Maintenance
+                        </option>
+
+                        <option
+                            value="Inspection Due"
+                            {% if aircraft.status == "Inspection Due" %}selected{% endif %}
+                        >
+                            Inspection Due
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Last Maintenance -->
+
+                <div class="form-group">
+
+                    <label for="last_maintenance">
+                        Last Maintenance
+                    </label>
+
+                    <input
+                        type="date"
+                        id="last_maintenance"
+                        name="last_maintenance"
+                        value="{{ aircraft.last_maintenance|date:'Y-m-d' }}"
+                    >
+
+                </div>
+
+
+                <!-- Next Maintenance -->
+
+                <div class="form-group">
+
+                    <label for="next_maintenance">
+                        Next Maintenance
+                    </label>
+
+                    <input
+                        type="date"
+                        id="next_maintenance"
+                        name="next_maintenance"
+                        value="{{ aircraft.next_maintenance|date:'Y-m-d' }}"
+                    >
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="/aircraft/"
+                        class="secondary-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Update Aircraft
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div>
+                ✈️ <strong>FlightFix</strong>
+            </div>
+
+            <div>
+                Aircraft Maintenance Efficiency Platform
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>

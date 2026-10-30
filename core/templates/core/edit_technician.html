@@ -1,0 +1,279 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightFix | Edit Technician</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <nav>
+
+            <a href="/">Home</a>
+
+            <a href="/dashboard/">
+                Dashboard
+            </a>
+
+            <a href="/aircraft/">
+                Aircraft
+            </a>
+
+            <a href="/maintenance/">
+                Maintenance
+            </a>
+
+            <a href="/inventory/">
+                Inventory
+            </a>
+
+            <a href="/technicians/" class="active">
+                Technicians
+            </a>
+
+        </nav>
+
+        <a href="/login/" class="login-btn">
+            Login
+        </a>
+
+    </header>
+
+
+
+    <!-- ================= FORM ================= -->
+
+    <main class="form-page">
+
+        <div class="form-container">
+
+
+            <div class="form-header">
+
+                <p class="tagline">
+                    FLIGHTFIX MANAGEMENT SYSTEM
+                </p>
+
+                <h1>
+                    Edit Technician
+                </h1>
+
+                <p>
+                    Update technician information and assignment.
+                </p>
+
+            </div>
+
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label>
+                        Technician Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        value="{{ technician.name }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMPLOYEE ID -->
+
+                <div class="form-group">
+
+                    <label>
+                        Employee ID
+                    </label>
+
+                    <input
+                        type="text"
+                        name="employee_id"
+                        value="{{ technician.employee_id }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- SPECIALIZATION -->
+
+                <div class="form-group">
+
+                    <label>
+                        Specialization
+                    </label>
+
+                    <input
+                        type="text"
+                        name="specialization"
+                        value="{{ technician.specialization }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EXPERIENCE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Experience (Years)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="experience"
+                        value="{{ technician.experience }}"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- CURRENT TASK -->
+
+                <div class="form-group">
+
+                    <label>
+                        Current Task
+                    </label>
+
+                    <input
+                        type="text"
+                        name="current_task"
+                        value="{{ technician.current_task }}"
+                    >
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div class="form-group">
+
+                    <label>
+                        Status
+                    </label>
+
+                    <select
+                        name="status"
+                        required
+                    >
+
+                        <option
+                            value="Available"
+                            {% if technician.status == "Available" %}
+                                selected
+                            {% endif %}
+                        >
+                            Available
+                        </option>
+
+                        <option
+                            value="On Task"
+                            {% if technician.status == "On Task" %}
+                                selected
+                            {% endif %}
+                        >
+                            On Task
+                        </option>
+
+                        <option
+                            value="On Leave"
+                            {% if technician.status == "On Leave" %}
+                                selected
+                            {% endif %}
+                        >
+                            On Leave
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="/technicians/"
+                        class="secondary-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        💾 Save Changes
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="logo">
+            ✈️ <span>FlightFix</span>
+        </div>
+
+        <p>
+            Aircraft Maintenance Efficiency Platform
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
